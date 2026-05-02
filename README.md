@@ -139,12 +139,6 @@ npm run dev
 
 ---
 
-## 📸 Screenshots
-
-*Add screenshots of your application here (homepage, dashboards, etc.)*
-
----
-
 ## 💡 Future Enhancements
 
 * Real-time notifications
@@ -160,32 +154,3 @@ Contributions are welcome! Feel free to fork this repository and submit a pull r
 
 ---
 
-## 👩‍💻 Author
-
-**Devi Priya**
-B.Tech CSE Student
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
----
-
-## ⭐ Acknowledgements
-
-* Open-source community
-* Online tutorials and documentation
-
-```
-
----
-
-If you want to make it **stand out for placements**, next step I recommend:
-- Add **live demo link**
-- Add **screenshots**
-- Add **“How it works” section (2–3 lines)**
-
-Tell me — I’ll upgrade this to a **top-tier GitHub README 🔥**
-```
