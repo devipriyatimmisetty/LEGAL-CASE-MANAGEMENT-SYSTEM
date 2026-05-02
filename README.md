@@ -1,198 +1,191 @@
-# ⚖️ LegalEase — Legal Case Management & Lawyer Booking System
+# ⚖️ LegalEase – Full Stack Legal Management System
 
-A full-stack MERN application with three portals: Client, Lawyer, and Admin.
-
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js v18+
-- MongoDB (local or Atlas)
+A full-stack web application designed to streamline legal services by connecting **clients, lawyers, and admins** on a single platform. Users can manage cases, book appointments, and track legal progress efficiently.
 
 ---
 
-## 🔧 Backend Setup
+## 🚀 Features
 
-```bash
-cd legal-system/backend
-npm install
-```
+### 👤 Authentication
+- User registration and login
+- Role-based access:
+  - Client
+  - Lawyer
+  - Admin
 
-Create a `.env` file (copy from `.env.example`):
-```
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/legal-system
-JWT_SECRET=your_super_secret_jwt_key
-NODE_ENV=development
-```
+### 👩‍⚖️ Lawyer Features
+- Manage assigned cases
+- View and update case details
+- Handle appointments
+- Update profile and settings
 
-Start the backend:
-```bash
-npm run dev
-```
+### 👨‍💼 Client Features
+- Browse lawyers
+- Book appointments
+- Track case progress
+- View case timelines
 
-### Seed Admin Account
-After starting, create the admin manually via MongoDB or use this one-time API call:
-
-**POST** `http://localhost:5000/api/auth/register`
-```json
-{
-  "name": "Admin",
-  "email": "admin@legalease.com",
-  "password": "admin123",
-  "role": "admin"
-}
-```
-> ⚠️ Change admin password after first login in production!
+### 🛡️ Admin Features
+- Manage users (clients and lawyers)
+- Verify lawyer profiles
+- Monitor cases
+- Access admin dashboard
 
 ---
 
-## 💻 Frontend Setup
+## 🛠️ Tech Stack
 
-```bash
-cd legal-system/frontend
-npm install
-npm run dev
-```
+### Frontend
+- React.js
+- Tailwind CSS
+- Vite
 
-Frontend runs at: `http://localhost:5173`
+### Backend
+- Node.js
+- Express.js
 
----
+### Database
+- MongoDB
 
-## 🔑 Demo Accounts
-
-After seeding, use these credentials on the login page:
-
-| Role   | Email                   | Password  |
-|--------|-------------------------|-----------|
-| Admin  | admin@legalease.com     | admin123  |
-| Client | (register at /register) | your pass |
-| Lawyer | (register at /register) | your pass |
-
-> **Note:** Lawyer accounts need admin approval before they can access the dashboard.
+### Other Tools
+- JWT Authentication
+- Multer (for file uploads)
 
 ---
 
 ## 📁 Project Structure
 
 ```
+
 legal-system/
+│
 ├── backend/
-│   ├── controllers/      # Business logic
-│   ├── models/           # Mongoose schemas
-│   ├── routes/           # Express routes
-│   ├── middleware/        # Auth + Upload
-│   ├── uploads/          # Uploaded files (auto-created)
-│   └── server.js
-└── frontend/
-    └── src/
-        ├── pages/
-        │   ├── client/   # Client portal pages
-        │   ├── lawyer/   # Lawyer portal pages
-        │   └── admin/    # Admin portal pages
-        ├── components/   # Shared components
-        ├── context/      # Auth context
-        └── utils/        # Axios instance
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── uploads/
+│   ├── seed.js
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   │   ├── admin/
+│   │   │   ├── client/
+│   │   │   └── lawyer/
+│   │   ├── context/
+│   │   └── utils/
+│   └── package.json
+│
+└── README.md
+
+````
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/legal-system.git
+cd legal-system
+````
+
+---
+
+### 2. Setup Backend
+
+```bash
+cd backend
+npm install
+```
+
+Create a `.env` file in the backend folder:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection
+JWT_SECRET=your_secret_key
+```
+
+Run backend:
+
+```bash
+npm start
 ```
 
 ---
 
-## 🔌 API Endpoints
+### 3. Setup Frontend
 
-### Auth
-| Method | Endpoint            | Description     |
-|--------|---------------------|-----------------|
-| POST   | /api/auth/register  | Register user   |
-| POST   | /api/auth/login     | Login           |
-| GET    | /api/auth/me        | Get current user|
-
-### Lawyers
-| Method | Endpoint                   | Description          |
-|--------|----------------------------|----------------------|
-| GET    | /api/lawyers               | Get all lawyers      |
-| GET    | /api/lawyers/dashboard     | Lawyer dashboard     |
-| GET    | /api/lawyers/:id           | Lawyer profile       |
-| PUT    | /api/lawyers/profile       | Update profile       |
-| POST   | /api/lawyers/documents     | Upload documents     |
-| PUT    | /api/lawyers/timeslots     | Set time slots       |
-
-### Appointments
-| Method | Endpoint                      | Description        |
-|--------|-------------------------------|--------------------|
-| POST   | /api/appointments             | Book appointment   |
-| GET    | /api/appointments/client      | Client appointments|
-| GET    | /api/appointments/lawyer      | Lawyer appointments|
-| PUT    | /api/appointments/:id         | Update status      |
-
-### Cases
-| Method | Endpoint                      | Description        |
-|--------|-------------------------------|--------------------|
-| POST   | /api/cases                    | Create case        |
-| GET    | /api/cases                    | Get cases          |
-| GET    | /api/cases/:id                | Case details       |
-| PUT    | /api/cases/:id                | Update case        |
-| POST   | /api/cases/:id/hearings       | Add hearing        |
-| POST   | /api/cases/:id/documents      | Upload documents   |
-| POST   | /api/cases/:id/timeline       | Add timeline entry |
-
-### Admin
-| Method | Endpoint                        | Description         |
-|--------|---------------------------------|---------------------|
-| GET    | /api/admin/dashboard            | Admin stats         |
-| GET    | /api/admin/pending-lawyers      | Pending lawyers     |
-| PUT    | /api/admin/approve-lawyer/:id   | Approve lawyer      |
-| PUT    | /api/admin/reject-lawyer/:id    | Reject lawyer       |
-| GET    | /api/admin/users                | All users           |
-| PUT    | /api/admin/block-user/:id       | Block user          |
-| DELETE | /api/admin/user/:id             | Delete user         |
-| GET    | /api/admin/cases                | All cases           |
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ---
 
-## 🛠️ Tech Stack
+## 🔗 API Modules
 
-| Layer      | Technology                    |
-|------------|-------------------------------|
-| Frontend   | React 18 + Vite + TailwindCSS |
-| Backend    | Node.js + Express.js          |
-| Database   | MongoDB + Mongoose            |
-| Auth       | JWT + Bcrypt                  |
-| Files      | Multer                        |
-| Charts     | Recharts                      |
-| Icons      | Lucide React                  |
-| HTTP       | Axios                         |
+* Authentication (Login / Register)
+* Case Management
+* Appointment Booking
+* Client Management
+* Lawyer Profiles
+* Admin Controls
 
 ---
 
-## ✨ Features
+## 📸 Screenshots
 
-### Client Portal
-- Register/Login
-- Browse & search verified lawyers (by specialization, rating, experience)
-- View lawyer profiles with reviews
-- Book appointments with time slot selection
-- Track case status with visual timeline & progress bar
-- Submit star ratings & reviews
-
-### Lawyer Portal
-- Register (pending admin approval)
-- Manage professional profile & time slots
-- Upload case documents (PDF, images, video)
-- Manage appointments (accept/reject)
-- Create & track cases with hearings
-- View analytics dashboard with charts
-
-### Admin Portal
-- Approve/reject lawyer registrations
-- View platform analytics with charts
-- Monitor all cases and users
-- Block/delete users
+*Add screenshots of your application here (homepage, dashboards, etc.)*
 
 ---
 
-## 📝 Notes
+## 💡 Future Enhancements
 
-- File uploads are stored in `/backend/uploads/`
-- JWT tokens expire in 30 days
-- Admin account must be created manually (no public registration for admin)
+* Real-time notifications
+* Chat system between lawyer and client
+* Mobile application
+* AI-based legal suggestions
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork this repository and submit a pull request.
+
+---
+
+## 👩‍💻 Author
+
+**Devi Priya**
+B.Tech CSE Student
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## ⭐ Acknowledgements
+
+* Open-source community
+* Online tutorials and documentation
+
+```
+
+---
+
+If you want to make it **stand out for placements**, next step I recommend:
+- Add **live demo link**
+- Add **screenshots**
+- Add **“How it works” section (2–3 lines)**
+
+Tell me — I’ll upgrade this to a **top-tier GitHub README 🔥**
+```
